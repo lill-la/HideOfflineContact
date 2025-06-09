@@ -26,7 +26,8 @@ namespace HideOfflineContact
             [HarmonyPrefix]
             static bool Prefix(ContactData data)
             {
-                if (data.CurrentStatus.OnlineStatus == OnlineStatus.Offline || data.Contact.IsPartiallyMigrated)
+                if ((data.CurrentStatus.OnlineStatus == OnlineStatus.Offline || data.Contact.IsPartiallyMigrated)
+                    && data.Cloud.Messages.UnreadCountByUser[data.UserId] == 0)
                 {
                     return false;
                 }
